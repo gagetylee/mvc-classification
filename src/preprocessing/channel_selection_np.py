@@ -69,3 +69,27 @@ def calculate_pcr(normalized_psds, mean_corr):
     pcr = [np.mean(psd) / mc for psd, mc in zip(normalized_psds, mean_corr)]
     return pcr
 
+def extract_channels(df, num_channels):
+    """Extract the most relevent channels using the Power-Correlation Ratio Maximization method.
+    
+    Parameters:
+    - df: {DataFrame} (sample, data)
+        time-series signal data
+    - num_channels: number of channels to extract
+
+    Returns:
+    - Extracted channel data
+    """
+    data = df.copy().to_numpy()
+
+    psds = calculate_psd(data)
+    normalize_psds = normalize_psd(psds)
+    corr_matrix = pearson_correlation(data)
+    mean_corr = mean_absolute_correlation(corr_matrix)
+    pcr = calculate_pcr(normalize_psds, mean_corr)
+
+    selected_channels = np.argsort(pcr)[:num_channels].tolist()
+    emg_df = df.loc[:][selected_channels]
+
+    return emg_df
+
