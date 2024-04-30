@@ -35,5 +35,14 @@ The model was trained on 80% of the data using the Random Forest algorithm. This
 </p>
 
 ## Installation
+To clone the repository and install the required dependencies through Conda, please run:
+```
+git clone git@github.com:gagetylee/mvc-classification.git
+cd mvc-classification
+conda env create -n mvc-proj -f requirements.yml
+conda activate mvc-proj
+```
 
 ## Future Plans
+- Implement a deep-learning approach with PyTorch
+- Augment dataset with synthetic EMG signals
