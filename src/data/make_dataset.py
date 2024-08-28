@@ -13,12 +13,22 @@ sfreq = 2048
 num_channels = 120
 s_duration = 10
 
+def check_dataset_downloaded(path):
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"The dataset path does not exist.: {path}")
+    
+    # Check for 'SubjectsDescription.txt'
+    subjects_file = os.path.join(path, 'SubjectsDescription.txt')
+    if not os.path.exists(subjects_file):
+        raise FileNotFoundError(f"The 'SubjectsDescription.txt' file is missing: {subjects_file}")
+    
 def load_subject_attributes(path):
     df = pd.read_csv(path, sep="\t", header=0)
     df['subject'] = df['subject'].astype('string')
     return df
 
 def load_metadata(path):
+    check_dataset_downloaded(path)
     columns = ['subject', 'task', '%mvc', 'bicep_path', 'torque_path']
     rows = []
     curr_row = 0
