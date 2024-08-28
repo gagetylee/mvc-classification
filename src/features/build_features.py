@@ -2,29 +2,10 @@ import pandas as pd
 import numpy as np
 from sklearn.decomposition import PCA
 
-# def time_features(df):
-#     signals = df.index.get_level_values(0).unique().tolist()
-#     channels = df.columns.tolist()
-#     features = ['max', 'std', 'mean']
-    
-#     new_index = pd.MultiIndex.from_product([signals, channels], names=['signal', 'channel'])
-#     feature_table = pd.DataFrame(index=new_index, columns=features)
-    
-#     for signal in signals:
-#         signal_data = df.loc[signal]
-#         for channel in channels:
-#             channel_data = signal_data[channel]
-            
-#             feature_table.loc[(signal, channel), 'max'] = channel_data.max()
-#             feature_table.loc[(signal, channel), 'std'] = channel_data.std()
-#             feature_table.loc[(signal, channel), 'mean'] = channel_data.mean()
-
-#     return feature_table
-
 def time_features(df):
-    signals = df.index.get_level_values(0).unique().tolist()  # Assuming your DataFrame is multi-indexed with signal names at level 0
+    signals = df.index.get_level_values(0).unique().tolist()
     channels = df.columns.tolist()
-    features = ['rms', 'mav', 'wl']  # Corrected feature names
+    features = ['max', 'std', 'mean']
     
     new_index = pd.MultiIndex.from_product([signals, channels], names=['signal', 'channel'])
     feature_table = pd.DataFrame(index=new_index, columns=features)
@@ -34,11 +15,30 @@ def time_features(df):
         for channel in channels:
             channel_data = signal_data[channel]
             
-            feature_table.loc[(signal, channel), 'rms'] = np.sqrt(np.mean(channel_data**2))
-            feature_table.loc[(signal, channel), 'mav'] = np.mean(np.abs(channel_data))
-            feature_table.loc[(signal, channel), 'wl'] = np.sum(np.abs(np.diff(channel_data)))
+            feature_table.loc[(signal, channel), 'max'] = channel_data.max()
+            feature_table.loc[(signal, channel), 'std'] = channel_data.std()
+            feature_table.loc[(signal, channel), 'mean'] = channel_data.mean()
 
     return feature_table
+
+# def time_features(df):
+#     signals = df.index.get_level_values(0).unique().tolist()  # Assuming your DataFrame is multi-indexed with signal names at level 0
+#     channels = df.columns.tolist()
+#     features = ['rms', 'mav', 'wl']  # Corrected feature names
+    
+#     new_index = pd.MultiIndex.from_product([signals, channels], names=['signal', 'channel'])
+#     feature_table = pd.DataFrame(index=new_index, columns=features)
+    
+#     for signal in signals:
+#         signal_data = df.loc[signal]
+#         for channel in channels:
+#             channel_data = signal_data[channel]
+            
+#             feature_table.loc[(signal, channel), 'rms'] = np.sqrt(np.mean(channel_data**2))
+#             feature_table.loc[(signal, channel), 'mav'] = np.mean(np.abs(channel_data))
+#             feature_table.loc[(signal, channel), 'wl'] = np.sum(np.abs(np.diff(channel_data)))
+
+#     return feature_table
 
 
 

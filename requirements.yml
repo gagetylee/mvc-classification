@@ -436,7 +436,7 @@ dependencies:
       - progressbar2==3.34.3
       - pyrenn==0.1
       - python-dateutil==2.9.0.post0
-      - python-graphviz==0.5.1
+      # - python-graphviz==0.5.1
       - python-utils==3.8.2
       - tableprint==0.7.1
       - theano==1.0.0
