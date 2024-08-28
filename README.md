@@ -34,7 +34,7 @@ The model was trained on 80% of the data using the Random Forest algorithm. This
 <img src="https://github.com/gagetylee/mvc-classification/assets/48107607/da3aba46-cce4-4df4-8c13-9c5372a93376" width=30%>
 </p>
 
-## Installation
+## Setup & Installation
 To clone the repository and install the required dependencies through Conda, please run:
 ```
 git clone git@github.com:gagetylee/mvc-classification.git
@@ -42,6 +42,8 @@ cd mvc-classification
 conda env create -n mvc-proj -f requirements.yml
 conda activate mvc-proj
 ```
+### Dataset
+Download and extract the dataset into the project directory. The dataset can be found [here](https://www.kaggle.com/datasets/gagetylee/semg-data).
 
 ## Future Plans
 - Implement a deep-learning approach with PyTorch
